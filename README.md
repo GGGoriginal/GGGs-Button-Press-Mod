@@ -1,4 +1,4 @@
-# GGGs-Freecam
+# GGGs Button Press Mod
 Credit to not a bird for making mod
 
-MAKE SURE TO USE UNITY EXPLORER
+Just presses buttons... with your mouse of course
