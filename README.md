@@ -1,4 +1,5 @@
 # GGGs Button Press Mod
-Credit to not a bird for making mod
+
+Delted for being a cheat sadly
 
 Just presses buttons... with your mouse of course
