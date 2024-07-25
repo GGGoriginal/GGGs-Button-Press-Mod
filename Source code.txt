@@ -5,12 +5,16 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utilla;
+using Photon.Pun;
 
 namespace GGG_FRECAM
 {
+    [ModdedGamemode]
+	[BepInDependency("org.legoandmars.gorillatag.utilla", "1.5.0")]
     [BepInPlugin(PluginInfo.Guid, PluginInfo.Name, PluginInfo.Version)]
-    public class GGG_FRECAM : BaseUnityPlugin
+    public class GGG_FRECAM : BaseUnityPlugin 
     {
+        bool inRoom;
         void Awake()
         {
             new Harmony(PluginInfo.Guid).PatchAll(Assembly.GetExecutingAssembly());
@@ -18,6 +22,9 @@ namespace GGG_FRECAM
 
         void FixedUpdate()
         {
+            if(!inRoom &&PhotonNetwork.InRoom)
+                return;
+
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
                 Ray ray;
@@ -36,6 +43,21 @@ namespace GGG_FRECAM
                     GorillaTagger.Instance.rightHandTriggerCollider.transform.position = hit.point;
                 }
             }
-        }
+        }	[ModdedGamemodeJoin]
+		public void OnJoin(string gamemode)
+		{
+        
+			inRoom = true;
+		}
+
+		/* This attribute tells Utilla to call this method when a modded room is left */
+		[ModdedGamemodeLeave]
+		public void OnLeave(string gamemode)
+		{
+			/* Deactivate your mod here */
+			/* This code will run regardless of if the mod is enabled*/
+
+			inRoom = false;
+		}
     }
 }
